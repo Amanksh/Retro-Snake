@@ -6,8 +6,8 @@ using namespace std;
 // Variables
 Color green = {173, 204, 96, 255};
 Color darkGreen = {43, 51, 24, 255};
-int cellSize = 30;
-int cellCount = 25;
+int cellSize = 20;
+int cellCount = 15;
 double lastUpdateTime = 0;
 int offset = 75;
 
@@ -49,7 +49,7 @@ public:
         {
             float x = body[i].x;
             float y = body[i].y;
-            Rectangle segment = {x * cellSize, y * cellSize, cellSize, cellSize};
+            Rectangle segment = {offset + x * cellSize, offset + y * cellSize, (float)cellSize, (float)cellSize};
             DrawRectangleRounded(segment, 0.5, 6, darkGreen);
         }
     }
@@ -91,7 +91,7 @@ public:
     }
     void Draw()
     {
-        DrawTexture(texture, position.x * cellSize, position.y * cellSize, WHITE);
+        DrawTexture(texture, offset + position.x * cellSize, offset + position.y * cellSize, WHITE);
     }
     Vector2 GenerateCell()
     {
@@ -199,6 +199,8 @@ int main()
             game.running = true;
         }
         ClearBackground(green);
+        DrawRectangleLinesEx(Rectangle{(float)offset - 5, (float)offset - 5, (float)cellSize * cellCount + 10, (float)cellCount * cellSize + 10}, 5, darkGreen);
+        DrawText("Retro Snake", offset - 5, 20, 40, darkGreen);
         game.Draw();
         EndDrawing();
     }
